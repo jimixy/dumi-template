@@ -8,8 +8,7 @@ import React, {
 } from 'react';
 
 import { Input } from 'antd';
-// import { createValidator } from '@ignorance/validator';
-import { createValidator } from './src';
+import { createValidator } from '@ignorance/validator';
 
 export interface SchemaItem {
   type: string;
@@ -75,12 +74,8 @@ export default (props: Props) => {
     return () => {};
   }, []);
 
-  console.log('1--components', fromData, originWidgets.current);
-
   const validator = useCallback(async (key: string, value: string) => {
-    const res = await verifySingleAsync(key, value);
-    console.log('11111', res);
-    validateMsg.current[key] = res;
+    validateMsg.current[key] = await verifySingleAsync(key, value);
     forceUpdate();
   }, []);
 
@@ -94,8 +89,6 @@ export default (props: Props) => {
       //   validateMsgRef.current = getResult();
       // };
       const Widget = DEFAULT_COMP[type] || components[type];
-      console.log('fromItem', fromItem, schema, key);
-      console.log('type', type, originWidgets.current, validateMsg.current);
       return (
         <Widget
           value={fromData[key]}

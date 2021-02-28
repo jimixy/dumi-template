@@ -17,7 +17,6 @@ export const MInput = React.memo(
     };
   }) => {
     const { name, label, value, onChange, validateMsg, validator } = props;
-    console.log('1--render', props, name, validateMsg);
     return (
       <div>
         <input
@@ -26,7 +25,6 @@ export const MInput = React.memo(
           placeholder={label}
           onChange={e => {
             onChange(name, e.target.value);
-            console.log('1', value, e.target.value);
             validator(name, e.target.value);
           }}
         />
